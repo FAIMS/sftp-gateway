@@ -9,6 +9,7 @@ and so there is no visiblity into the filesystem.
 
 * An uploaded file can be saved to the local filesystem.
 * An uploaded file can be pushed to an HTTP endpoint as a POST request.
+* An uploaded file can be pushed to a Webdav endpoint
 * An uploaded file can trigger an email notification.
 
 ### Configuration
@@ -21,3 +22,14 @@ store uploaded files on the filesystem, and where.
 Copy the `config.yml.dist` file to `config.yml`, and edit 
 accordingly.
 
+### Docker
+
+To deploy the sftp gateway in docker:
+
+```
+$ docker pull ?
+$ docker cp sftp-gateway:/srv/config.yml.dist config.yml
+# Edit your config.yml
+$ docker cp config.yml sftp-gateway:/srv/config.yml
+$ docker run -it sftp-gateway
+```
