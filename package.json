@@ -24,6 +24,6 @@
   "repository": {
     "type": "git",
     "url":  "github:FAIMS/sftp-gateway"
-  },
+  }
 
 }

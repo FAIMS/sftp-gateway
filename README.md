@@ -27,9 +27,11 @@ accordingly.
 To deploy the sftp gateway in docker:
 
 ```
-$ docker pull ?
+$ docker pull faims/sftp-gateway
 $ docker cp sftp-gateway:/srv/config.yml.dist config.yml
+
 # Edit your config.yml
+
 $ docker cp config.yml sftp-gateway:/srv/config.yml
 $ docker run -it sftp-gateway
 ```
