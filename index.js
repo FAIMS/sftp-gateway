@@ -7,6 +7,7 @@ var request = require('request');
 var mailer  = require('nodemailer');
 var log     = require('./lib/logger')('app.log');
 var sftpd   = require('./lib/sftpd');
+var createClient  = require("webdav");
 
 if (! config.sftp) {
     config.sftp = {};
