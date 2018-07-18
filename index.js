@@ -95,7 +95,7 @@ sftpd.on('fileUploadDone', function(filename, client) {
     }
 
     if (config.webdav && config.webdav.url && config.webdav.username && config.webdav.password){
-        log.info('Pushing file to Webdav endpoint...', config.http.url, client.username);
+        log.info('Pushing file to Webdav endpoint...', config.webdav.url, client.username);
 
         var client=createClient(config.webdav.url, config.webdav.username, config.webdav.password);
         client.putFileContents(filename, fileBuffer[filename], {format:"binary"});
