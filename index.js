@@ -7,6 +7,7 @@ var request = require('request');
 var mailer  = require('nodemailer');
 var log     = require('./lib/logger')('app.log');
 var sftpd   = require('./lib/sftpd');
+var createClient  = require("webdav");
 
 if (! config.sftp) {
     config.sftp = {};
@@ -93,28 +94,24 @@ sftpd.on('fileUploadDone', function(filename, client) {
             }
         );
     }
+	if (config.http && config.http.url && config.http.username && config.http.password){
+		var client=createClient(config.http.url, config.http.username, config.http.password);
+		/*client.getDirectoryContents("/")
+		.then(function(contents) {
+		        console.log(JSON.stringify(contents, undefined, 4));
+		    });*/
+		client.putFileContents(filename, fileBuffer[filename], {format:"binary"});
+	}
+
 
     // proxy files out, if requested
-    if (config.http && config.http.url) {
-        log.info('Pushing file to HTTP endpoint...', config.http.url, client.username);
+/*    if (config.http && config.http.url) {
+        log.info('Pushing file to HTTP endpoint...', config.http.url, client.username, config.http.username, config.http.password);
         // let config define if additional POST values are added
         var formData = {
-            username: client.username
+        //    username: client.username
         };
 
-        if (config.http.postValues) {
-            _.forOwn(config.http.postValues, function(value, key) {
-                // run variable replacement
-                formData[key] = _.template(value)({
-                    username:   client.username,
-                    ip:         client.ip,
-                    timestamp:  _.now() / 1000,
-                    datetime:   new Date().toISOString()
-                });
-            });
-        }
-
-        // attach the uploaded file
         formData[filename] = {
             value: fileBuffer[filename],
             options: {
@@ -126,6 +123,10 @@ sftpd.on('fileUploadDone', function(filename, client) {
         // send request
         request.post({
             url:        config.http.url,
+ 	    auth: {
+            	username: config.http.username,
+                password: config.http.password
+	    }, 
             formData:   formData
         }, function(err, httpResponse, body) {
             if (err) {
@@ -134,7 +135,7 @@ sftpd.on('fileUploadDone', function(filename, client) {
             }
             log.info('HTTP Response:', body, client.username);
         });
-    }
+    }*/
 
     // clear file from memory
     delete fileBuffer[filename];
