@@ -9,11 +9,10 @@ sftp:
     steve:
       publickey: ssh-rsa A...t
 
-http:
+webdav:
   url: http://192.168.1.2:8080/upload-file
-  postValues:
-    a: b
-    c: d
+  username:
+  password:
 
 email:
   # see https://nodemailer.com/

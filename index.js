@@ -94,8 +94,8 @@ sftpd.on('fileUploadDone', function(filename, client) {
             }
         );
     }
-	if (config.http && config.http.url && config.http.username && config.http.password){
-		var client=createClient(config.http.url, config.http.username, config.http.password);
+	if (config.webdav && config.webdav.url && config.webdav.username && config.webdav.password){
+		var client=createClient(config.webdav.url, config.webdav.username, config.webdav.password);
 		/*client.getDirectoryContents("/")
 		.then(function(contents) {
 		        console.log(JSON.stringify(contents, undefined, 4));
